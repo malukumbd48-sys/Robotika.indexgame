@@ -1,0 +1,366 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Game Busur Panah</title>
+
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    background:skyblue;
+    font-family:Arial;
+}
+
+canvas{
+    background:linear-gradient(skyblue,white);
+}
+
+#ui{
+    position:absolute;
+    top:10px;
+    left:10px;
+    font-size:20px;
+}
+
+button{
+    font-size:18px;
+    padding:8px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="ui">
+🏹 Game Busur Panah<br>
+Skor: <span id="skor">0</span><br>
+
+<button onclick="gantiBusur()">
+🔄 Ganti anak panah
+</button>
+
+</div>
+
+
+<canvas id="game"></canvas>
+
+
+<script>
+
+let canvas=document.getElementById("game");
+let ctx=canvas.getContext("2d");
+
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+
+let skor=0;
+
+let busur=0;
+
+let warna=[
+"brown",
+"gold",
+"purple"
+];
+
+
+let panah={
+x:150,
+y:canvas.height/2,
+jalan:false
+};
+
+
+let target={
+x:canvas.width-150,
+y:canvas.height/2,
+arah:2
+};
+
+
+let pesan="";
+let waktu=0;
+
+
+// ganti busur
+
+function gantiBusur(){
+
+busur++;
+
+if(busur>=warna.length)
+busur=0;
+
+}
+
+
+// tembak
+
+canvas.onclick=function(){
+
+if(!panah.jalan){
+
+panah.x=170;
+panah.jalan=true;
+
+}
+
+}
+
+
+
+
+function gambar(){
+
+ctx.clearRect(
+0,0,
+canvas.width,
+canvas.height
+);
+
+
+// tanah
+
+ctx.fillStyle="green";
+ctx.fillRect(
+0,
+canvas.height-100,
+canvas.width,
+100
+);
+
+
+// target
+
+ctx.fillStyle="red";
+
+ctx.beginPath();
+
+ctx.arc(
+target.x,
+target.y,
+40,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+ctx.fillStyle="white";
+ctx.font="30px Arial";
+ctx.fillText("🎯",
+target.x-20,
+target.y+10);
+
+
+// busur
+
+ctx.strokeStyle=
+warna[busur];
+
+ctx.lineWidth=10;
+
+ctx.beginPath();
+
+ctx.arc(
+150,
+canvas.height/2,
+70,
+-Math.PI/2,
+Math.PI/2
+);
+
+ctx.stroke();
+
+
+// anak panah
+
+ctx.strokeStyle="black";
+ctx.lineWidth=5;
+
+ctx.beginPath();
+
+ctx.moveTo(
+panah.x,
+panah.y
+);
+
+ctx.lineTo(
+panah.x+80,
+panah.y
+);
+
+ctx.stroke();
+
+
+// emoji
+
+if(waktu>0){
+
+ctx.font="70px Arial";
+
+ctx.fillText(
+pesan,
+canvas.width/2,
+100
+);
+
+waktu--;
+
+}
+
+
+}
+
+
+// update
+
+function update(){
+
+
+// target bergerak
+
+target.y+=target.arah;
+
+if(
+target.y<100 ||
+target.y>canvas.height-150
+)
+target.arah*=-1;
+
+
+
+// panah jalan
+
+if(panah.jalan){
+
+panah.x+=15;
+
+
+if(
+Math.abs(
+panah.x-target.x
+)<40 &&
+Math.abs(
+panah.y-target.y
+)<50
+){
+
+skor++;
+
+document.getElementById("skor")
+.innerHTML=skor;
+
+pesan="😄🎯";
+waktu=60;
+
+panah.jalan=false;
+panah.x=170;
+
+}
+
+
+if(panah.x>canvas.width){
+
+pesan="😢";
+
+waktu=60;
+
+panah.jalan=false;
+panah.x=170;
+
+}
+
+
+}
+
+
+gambar();
+
+requestAnimationFrame(update);
+
+}
+
+
+update();
+
+
+</script>
+
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Diri</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:putih;
+}
+
+.kartu{
+    width:320px;
+    margin:50px auto;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    text-align:center;
+    padding:20px;
+}
+
+img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    border:4px solid #2196f3;
+}
+
+h2{
+    color:#2196f3;
+    margin-top:10px;
+}
+
+p{
+    margin:8px 0;
+    color:#444;
+}
+
+button{
+    margin-top:15px;
+    padding:10px 20px;
+    border:none;
+    background:#2196f3;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#1976d2;
+}
+</style>
+
+</head>
+<body>
+
+<div class="kartu">
+    <img src="https://via.placeholder.com/120" alt="Foto Profil">
+ 
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="js/index.js"></script>
+ 
